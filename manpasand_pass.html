@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manpasand Pass Clone</title>
+  <style>
+    :root{
+      --primary:#00baf2;
+      --darkblue:#002e6e;
+      --white:#fff;
+    }
+    *{box-sizing:border-box;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;}
+    body{margin:0;background:#f7f7f7;display:flex;justify-content:center;}
+    .phone{width:390px;max-width:100%;background:#fff;min-height:100vh;box-shadow:0 0 12px rgba(0,0,0,0.15);padding-bottom:120px;position:relative;}
+
+    .topbar{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:12px 16px;
+      font-weight:600;
+      color:var(--darkblue);
+      position:relative;
+    }
+    .topbar div:last-child{
+      position:absolute;
+      right:16px;
+    }
+    .topbar img{
+      height:60px;
+      width:auto;
+    }
+
+    .content{padding:16px;}
+    .card{background:#f0f7ff;border-radius:8px;padding:16px;text-align:center;}
+    .pass-title{font-size:18px;font-weight:600;margin:8px 0;}
+    .sub{font-size:14px;color:#666;}
+    .price{font-size:28px;font-weight:700;margin-top:12px;}
+    .success{color:#000;font-size:14px;margin-top:6px;font-weight:600;}
+    .meta{font-size:12px;color:#666;margin-top:4px;}
+    .timer-box{background:#fff;border-radius:8px;padding:12px;margin-top:12px;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+    .timer-label{font-size:13px;color:#000;margin-bottom:4px;}
+
+    /* Timer digits flex */
+    .timer {
+      display:flex;
+      justify-content:center;
+      font-size:26px;
+      font-weight:700;
+      margin-top:4px;
+      font-family: "SF Pro Text", monospace;
+    }
+    .time-part {
+      width:40px;
+      text-align:center;
+    }
+    .time-units {
+      display:flex;
+      justify-content:center;
+      margin-top:4px;
+      font-family: "SF Pro Text", monospace;
+    }
+    .time-units span {
+      width:40px;
+      text-align:center;
+      font-size:10px;
+      color:#555;
+      margin:0 2px;
+      font-family: "SF Pro Text", monospace;
+    }
+
+    .btn{display:block;margin:12px auto 0;background:var(--primary);color:#fff;padding:10px;border-radius:6px;text-decoration:none;width:80%;text-align:center;font-weight:600;}
+
+    .section{border-top:1px solid #ddd;padding:16px;}
+    .section h3{margin:0 0 12px;font-size:14px;font-weight:600;color:#333;}
+    .row{display:flex;justify-content:space-between;font-size:14px;margin:6px 0;}
+    .muted{color:#555;font-size:13px;}
+    .copy{color:var(--primary);font-size:12px;cursor:pointer;}
+
+   .bottom-nav{
+      position:fixed;
+      bottom:10px;
+      left:20px;
+      right:20px;
+      max-width:350px;
+      margin:0 auto;
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      padding:12px;
+      background:#002e6e;
+      color:#fff;
+      border-radius:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    }
+    .nav-item{
+      text-align:center;
+      font-size:13px;
+      font-weight:700;
+      color:var(--white);
+      flex:1;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <div class="topbar">
+      <div><img src="Paytm-Logo.png" alt="Paytm"></div>
+      <div>Help</div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <img src="AMTS_Logo.png" alt="AMTS" style="height:50px;margin-bottom:10px;">
+        <div class="pass-title">Manpasand Pass</div>
+        <div class="sub">1 Adult Pass</div>
+        <div class="price">₹45 ✅</div>
+        <div class="success">PASS BOOKED SUCCESSFULLY</div>
+        <div class="meta" id="bookedAt"></div>
+        <div class="timer-box">
+          <div class="timer-label">Your pass is valid for</div>
+          <div class="timer" id="countdown">
+            <span class="time-part" id="hours">--</span>:
+            <span class="time-part" id="minutes">--</span>:
+            <span class="time-part" id="seconds">--</span>
+          </div>
+          <div class="time-units">
+            <span>HOURS</span>
+            <span>MINUTES</span>
+            <span>SECONDS</span>
+          </div>
+          <a href="#" class="btn">View your Pass</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Trip Details</h3>
+        <div class="row"><span class="muted">OPERATOR</span><span>AMTS</span></div>
+        <div class="row"><span class="muted">BUS NUMBER</span><span>All Bus Access</span></div>
+        <div class="row"><span class="muted">Order ID</span><span id="orderId"></span></div>
+        <div class="muted" style="margin-top:8px;">For any queries regarding Pass, please contact AMTS with Order Id.</div>
+      </div>
+
+      <div class="section">
+        <h3>Payment Details</h3>
+        <div class="row"><span class="muted">FARE BREAKUP</span><span></span></div>
+        <div class="row"><span>1 X Adult</span><span>₹45</span></div>
+        <div class="row" style="font-weight:600;"><span>Total</span><span>₹45</span></div>
+        <div class="row" style="margin-top:12px;"><span class="muted">PAYMENT MODE</span><span>₹45</span></div>
+        <div class="row"><span>UPI Linked Bank Account</span></div>
+        <div class="row"><span class="muted">Transaction ID:</span><span id="txnId"></span></div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item">Home</div>
+      <div class="nav-item">Cashback</div>
+      <div class="nav-item">Help</div>
+    </div>
+  </div>
+
+  <script>
+    const now = new Date();
+    const options = { day:'2-digit', month:'short', year:'numeric' };
+    document.getElementById('bookedAt').textContent = 
+      now.toLocaleDateString('en-GB', options) + ", 07:00 AM";
+
+    document.getElementById('orderId').innerHTML = Math.floor(Math.random()*1e11) + ' <span class="copy">copy</span>';
+    document.getElementById('txnId').textContent = Math.floor(Math.random()*1e12);
+
+    function getMidnight(){
+      const m = new Date();
+      m.setHours(24,0,0,0);
+      return m;
+    }
+    const endTime = getMidnight();
+
+    function pad(n){return String(n).padStart(2,'0');}
+
+    function update(){
+      const diff = endTime - new Date();
+      if(diff<=0){
+        document.getElementById('hours').textContent = "EX";
+        document.getElementById('minutes').textContent = "PI";
+        document.getElementById('seconds').textContent = "RED";
+        clearInterval(timer);
+        return;
+      }
+      let totalSeconds = Math.floor(diff/1000);
+      const hours = Math.floor(totalSeconds/3600);
+      totalSeconds %= 3600;
+      const mins = Math.floor(totalSeconds/60);
+      const secs = totalSeconds % 60;
+
+      document.getElementById('hours').textContent = pad(hours);
+      document.getElementById('minutes').textContent = pad(mins);
+      document.getElementById('seconds').textContent = pad(secs);
+    }
+
+    const timer = setInterval(update,1000);
+    update();
+  </script>
+</body>
+</html>
