@@ -33,13 +33,22 @@
     }
 
     .content{padding:16px;}
-    .card{background:#f0f7ff;border-radius:8px;padding:16px;text-align:center;}
-    .pass-title{font-size:18px;font-weight:600;margin:8px 0;}
-    .sub{font-size:14px;color:#666;}
+    .card{font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0px 0;background:#a8d0f0;border-radius:0px;padding:16px;text-align:center;}
+    .pass-title{font-size:22px;font-weight:700;margin:6px 0;letter-spacing: 1px;}
+    .sub{font-size:14px;color:#000;margin-top:14px;margin-bottom:18px;}
     .price{font-size:28px;font-weight:700;margin-top:12px;}
-    .success{color:#000;font-size:14px;margin-top:6px;font-weight:600;}
+    .success{color:#000;font-size:14px;margin-top:6px;font-weight:600; margin-bottom:18px;}
     .meta{font-size:12px;color:#666;margin-top:4px;}
-    .timer-box{background:#fff;border-radius:8px;padding:12px;margin-top:12px;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+    .dashed-line {
+  border-bottom: 1px dashed #aaa; /* dashed line style */
+  width: 90%;                     /* full width of container */
+  margin: 12px 16px;               /* upar niche space, adjust as needed */
+}
+
+    .timer-box{background:#fff;border-radius:8px;padding:18px;margin-top:12px;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
     .timer-label{font-size:13px;color:#000;margin-bottom:4px;}
 
     /* Timer digits flex */
@@ -101,6 +110,62 @@
       color:var(--white);
       flex:1;
     }
+    .boy {
+  display: block;
+  margin: 6px auto;   /* center align karega */
+  height: 40px;       /* image ki height, zarurat ho to change kar sakte ho */
+  width: auto;        /* ratio maintain karega */
+}
+.line {
+  width: 100%;
+  margin:0;
+  padding: 0;
+}
+.line.skyblue {
+  height: 6px;
+  background-color: #5dade2;  /* light/sky blue */
+}
+.line.navy {
+  height: 6px;
+  border-bottom-left-radius:8px;
+  border-bottom-right-radius:8px;
+  background-color: #002e6e;  /* navy blue */
+}
+.trip-box {
+  border: 1px solid #ccc;   /* box ka border */
+  border-radius: 8px;       /* thoda gol corners */
+  padding: 16px;            /* andar space */
+  background: #fdfdfd;      /* halka white bg */
+  margin: 16px 0;           /* upar-niche gap */
+}
+.detail-block {
+  margin-bottom: 12px;
+}
+.bus-block {
+  margin-bottom: 44px; /* All Bus Access ke niche gap */
+}
+
+.detail-block .muted {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+}
+.detail-block .value {
+  font-size: 14px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: #000;
+}
+.payment-box {
+  border: 1px solid #ccc;   /* box ka border */
+  border-radius: 8px;
+  padding: 16px;
+  background: #fdfdfd;      /* halka white bg */
+  margin: 16px 0;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -111,12 +176,14 @@
     </div>
     <div class="content">
       <div class="card">
-        <img src="AMTS_Logo.png" alt="AMTS" style="height:50px;margin-bottom:10px;">
+        <img src="AMTS_Logo.png" alt="AMTS" style="height:50px;margin-bottom:1px;">
         <div class="pass-title">Manpasand Pass</div>
         <div class="sub">1 Adult Pass</div>
+	<img src="boy.jpg" alt="boy_photo" class="boy">
         <div class="price">₹45 ✅</div>
         <div class="success">PASS BOOKED SUCCESSFULLY</div>
         <div class="meta" id="bookedAt"></div>
+	<div class="dashed-line"></div>
         <div class="timer-box">
           <div class="timer-label">Your pass is valid for</div>
           <div class="timer" id="countdown">
@@ -132,25 +199,74 @@
           <a href="#" class="btn">View your Pass</a>
         </div>
       </div>
+<div class="line skyblue"></div>
+<div class="line navy"></div>
 
-      <div class="section">
-        <h3>Trip Details</h3>
-        <div class="row"><span class="muted">OPERATOR</span><span>AMTS</span></div>
-        <div class="row"><span class="muted">BUS NUMBER</span><span>All Bus Access</span></div>
-        <div class="row"><span class="muted">Order ID</span><span id="orderId"></span></div>
-        <div class="muted" style="margin-top:8px;">For any queries regarding Pass, please contact AMTS with Order Id.</div>
-      </div>
+     <div class="section trip-box">
+  <h3>Trip Details</h3>
 
-      <div class="section">
-        <h3>Payment Details</h3>
-        <div class="row"><span class="muted">FARE BREAKUP</span><span></span></div>
-        <div class="row"><span>1 X Adult</span><span>₹45</span></div>
-        <div class="row" style="font-weight:600;"><span>Total</span><span>₹45</span></div>
-        <div class="row" style="margin-top:12px;"><span class="muted">PAYMENT MODE</span><span>₹45</span></div>
-        <div class="row"><span>UPI Linked Bank Account</span></div>
-        <div class="row"><span class="muted">Transaction ID:</span><span id="txnId"></span></div>
-      </div>
-    </div>
+  <!-- Operator -->
+  <div class="detail-block">
+    <div class="muted">OPERATOR</div>
+    <div class="value">AMTS</div>
+  </div>
+
+  <!-- Bus Number -->
+  <div class="detail-block bus-block">
+    <div class="muted">BUS NUMBER</div>
+    <div class="value">All Bus Access</div>
+  </div>
+
+  <!-- dotted line after bus number -->
+  <div class="dashed-line"></div>
+
+  <!-- Order ID same line format -->
+  <div class="row">
+    <span class="value">ORDER ID : 
+    <span id="orderId"></span></span>
+  </div>
+
+  <div class="muted" style="margin-top:8px;">
+    For any queries regarding Pass, please contact AMTS with Order Id.
+  </div>
+</div>
+
+
+      <div class="section payment-box">
+  <h3>Payment Details</h3>
+
+  <div class="row"><span class="muted">FARE BREAKUP</span></div>
+
+  <!-- 1X Adult -->
+  <div class="row">
+    <span>1 X Adult</span><span>₹45</span>
+  </div>
+  <!-- dotted line after 1 X Adult -->
+  <div class="dashed-line"></div>
+
+  <!-- Total -->
+  <div class="row" style="font-weight:600;">
+    <span>Total</span><span>₹45</span>
+  </div>
+  <!-- dotted line after Total -->
+  <div class="dashed-line"></div>
+
+  <!-- Payment Mode (no amount here) -->
+  <div class="row" style="margin-top:12px;">
+    <span class="muted">PAYMENT MODE</span>
+  </div>
+
+  <!-- Bank account ke saamne Rs 45 -->
+  <div class="row">
+    <span>UPI Linked Bank Account</span><span>₹45</span>
+  </div>
+
+  <!-- Transaction ID -->
+  <div class="row">
+    <span class="muted">Transaction ID: <span id="txnId"></span></span>
+  </div>
+</div>
+
 
     <div class="bottom-nav">
       <div class="nav-item">Home</div>
@@ -165,7 +281,7 @@
     document.getElementById('bookedAt').textContent = 
       now.toLocaleDateString('en-GB', options) + ", 07:00 AM";
 
-    document.getElementById('orderId').innerHTML = Math.floor(Math.random()*1e11) + ' <span class="copy">copy</span>';
+document.getElementById('orderId').innerHTML = Math.floor(Math.random()*1e11) + ' <span class="copy">copy</span>';
     document.getElementById('txnId').textContent = Math.floor(Math.random()*1e12);
 
     function getMidnight(){
